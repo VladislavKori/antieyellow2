@@ -1,0 +1,28 @@
+.input {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+
+    &__lable {
+        font-family: 'Montserrat';
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 100%;
+        color: #EFEFEF;
+    }
+
+    &__body {
+        width: 100%;
+        background: transparent;
+        border: 1px solid #424242;
+        padding: 10px 20px;
+        outline: none;
+
+        font-family: 'Montserrat';
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 100%;
+        color: #DBDBDB;
+    }
+}

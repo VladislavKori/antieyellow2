@@ -1,0 +1,19 @@
+.button {
+    background: #FED953;
+    padding: 12px;
+    width: 100%;
+    border: none;
+
+    font-family: 'Montserrat';
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 100%;
+    color: #1F1F1F;
+
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+
+    &:hover {
+        background: #bda23e;
+    }
+}
