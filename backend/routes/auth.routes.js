@@ -10,8 +10,6 @@ router.post('/signup', [
 ], controller.signup)
 router.post('/signin', controller.singin)
 router.get('/refresh', controller.refresh)
-router.post('/signout', [
-    authMiddleware.verifyToken
-], controller.signout)
+router.get('/logout', controller.logout)
 
 module.exports = router;

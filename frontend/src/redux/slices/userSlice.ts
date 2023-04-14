@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { register, login, refresh } from '../actions/userActions';
+import { register, login, refresh, logout } from '../actions/userActions';
 
 interface IinitialState {
     loading: boolean
@@ -66,8 +66,25 @@ const authSlice = createSlice({
             state.success = true
             state.isAuth = true
             state.userInfo = payload
+            console.log(payload)
         })
         builder.addCase(refresh.rejected, (state, {payload}) => {
+            state.loading = false
+            state.error = payload;
+        })
+
+        // logout
+        builder.addCase(logout.pending, (state, action) => {
+            state.loading = true
+            state.error = null
+        })
+        builder.addCase(logout.fulfilled, (state, {payload}) => {
+            state.loading = false
+            state.success = true
+            state.isAuth = false
+            state.userInfo = null
+        })
+        builder.addCase(logout.rejected, (state, {payload}) => {
             state.loading = false
             state.error = payload;
         })

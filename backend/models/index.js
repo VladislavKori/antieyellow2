@@ -47,7 +47,9 @@ db.ROLES = ["user", "admin"];
 db.user.belongsToMany(db.post, { through: 'user_posts' });
 db.post.belongsToMany(db.user, { through: 'user_posts' });
 
-db.user.hasMany(db.tokens);
+db.user.hasMany(db.tokens, {
+    foreignKey: 'userid'
+});
 
 
 module.exports = db;

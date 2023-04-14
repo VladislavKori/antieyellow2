@@ -10,7 +10,9 @@ const bcrypt = require('bcryptjs')
 
 const {
     generateTokens,
-    validateRefreshToken
+    validateRefreshToken,
+    saveToken,
+    logout
 } = require('../services/authService')
 
 exports.signup = async (req, res) => {
@@ -29,6 +31,7 @@ exports.signup = async (req, res) => {
             email: req.body.email
         }
         const userTokens = generateTokens(userData);
+        saveToken(user.dataValues.id, userTokens.refreshToken)
 
         res.cookie(
             'refreshToken',
@@ -102,10 +105,14 @@ exports.singin = async (req, res) => {
     }
 }
 
-exports.signout = async (req, res) => {
+exports.logout = async (req, res) => {
     try {
+        const {refreshToken} = req.cookies;
+        await logout(refreshToken)
+        res.clearCookie('refreshToken');
+
         return res.status(200).send({
-            message: "You've been signed out!"
+            message: "You've been logout!"
         })
     } catch (error) {
         res.status(500).send({
@@ -116,28 +123,59 @@ exports.signout = async (req, res) => {
 
 exports.refresh = async (req, res) => {
     try {
-        console.log('hello')
-        const { refreshToken } = req.cookies;
-        
+        const {
+            refreshToken
+        } = req.cookies;
+
+        console.log(refreshToken, " refresh")
+
+        // Проверки
         if (!refreshToken) {
+            console.log('1')
             return res.status(401).send({
                 message: "Refresh Token Not Defind",
             });
         }
         const userData = validateRefreshToken(refreshToken);
-        console.log(userData)
-        const tokenFromDb = await Token.findOne({where: {token: refreshToken}})
+        const tokenFromDb = await Token.findOne({
+            where: {
+                token: refreshToken
+            }
+        })
         if (!userData || !tokenFromDb) {
+            console.log('1')
             return res.status(401).send({
                 message: "Refresh Token Not Valid",
             });
         }
-        const user = await User.findOne({where: {id: userData.id}})
-        const tokens = generateTokens(user)
-        console.log(tokens)
 
+        const user = await User.findOne({
+            where: {
+                id: userData.id
+            }
+        })
+        const tokens = generateTokens({
+            id: user.dataValues.id,
+            email: user.dataValues.email
+        });
+        await saveToken(userData.id, tokens.refreshToken)
+
+        let authorities = [];
+        const roles = await user.getRoles();
+        for (let i = 0; i < roles.length; i++) {
+            authorities.push("ROLE_" + roles[i].name.toUpperCase());
+        } 
+        
+        res.cookie('refreshToken', 
+            tokens.refreshToken,
+            {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true}
+        )
         return res.status(200).send({
-            message: "You've been signed out!"
+            ...tokens,
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            roles: authorities,
         })
     } catch (error) {
         res.status(500).send({

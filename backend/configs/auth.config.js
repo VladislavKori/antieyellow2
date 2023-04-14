@@ -1,5 +1,5 @@
 module.exports = {
     secret: "hello",
-    JWT_ACCESS_SECRET: "hello_access",
-    JWT_REFRESH_SECRET: "hello_refresh"
+    JWT_ACCESS_SECRET: "helloaccess",
+    JWT_REFRESH_SECRET: "hellorefresh"
 }

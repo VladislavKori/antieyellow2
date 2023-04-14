@@ -21,9 +21,8 @@ export const register = createAsyncThunk(
     async ({ username, email, password }: registerProps, { rejectWithValue }) => {
         try {
             const config = {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
+                withCredentials: true
             }
 
             const response = await axios.post(
@@ -84,6 +83,30 @@ export const refresh = createAsyncThunk(
 
             localStorage.setItem('token', response.data.accessToken);
 
+            return response.data
+        } catch (error: any) {
+            return rejectWithValue(error.response.data.message)
+        }
+    }
+)
+
+export const logout = createAsyncThunk(
+    'user/logout',
+    async (_, { rejectWithValue }) => {
+        try {
+
+            const config = {
+                headers: { 'Content-Type': 'application/json' },
+                withCredentials: true
+            }
+
+            const response = await axios.get(
+                `${backendURL}/api/auth/logout`,
+                config
+            );
+
+            localStorage.removeItem('token');
+            return response.data
         } catch (error: any) {
             return rejectWithValue(error.response.data.message)
         }

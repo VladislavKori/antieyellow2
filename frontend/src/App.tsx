@@ -5,7 +5,6 @@ import MainPage from './pages/MainPage'
 import UserPage from './pages/UserPage'
 import ProtectedRoute from './utils/ProtectedRoute'
 import SettingsPage from './pages/SettingsPage'
-import LoginPage from './pages/LoginPage'
 import Header from './components/Elements/Header/Header'
 import Footer from './components/Elements/Footer/Footer'
 import Loader from './components/Elements/Loader/Loader'
@@ -33,13 +32,13 @@ function App() {
               <MainPage />
             } />
             <Route path="/galary" element={<PhotoGalary />} />
-            <Route path="/:userId" element={<UserPage />} />
+            <Route path="/user/:userId" element={<UserPage />} />
             <Route path="/settings" element={
               <ProtectedRoute>
                 <SettingsPage />
               </ProtectedRoute>
             } />
-            <Route path="/login" element={<LoginPage />} />
+            {/* <Route path="/login" element={<LoginPage />} /> */}
           </Routes>
         </div>
         <Footer />
