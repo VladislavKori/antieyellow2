@@ -20,10 +20,6 @@ function SignUpForm() {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (error) {
-            alert(error);
-        }
-
         if (success) {
             localStorage.setItem('token', userInfo.accessToken);
         }

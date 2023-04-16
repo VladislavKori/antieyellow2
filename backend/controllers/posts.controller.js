@@ -49,7 +49,7 @@ exports.createpost = async (req, res) => {
 
         const {
             title,
-            content
+            content,
         } = req.body;
         if (title === undefined || content === undefined) throw new Error('Не хвататет данных');
 

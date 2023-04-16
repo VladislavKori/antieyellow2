@@ -7,6 +7,7 @@ const path = require('path');
 const authRoutes = require('./routes/auth.routes')
 const postRoutes = require('./routes/posts.routes')
 const photoRoutes = require('./routes/photos.routes')
+const fileRoutes = require('./routes/file.routes')
 
 const commonConf = require('./configs/common.config')
 
@@ -34,6 +35,7 @@ db.sequelize.sync({
 app.use('/api/auth', authRoutes)
 app.use('/api', postRoutes)
 app.use('/api/photos', photoRoutes)
+app.use('/api/files', fileRoutes)
 
 app.listen(3000, (err) => {
   if (err) return console.log('error', err)

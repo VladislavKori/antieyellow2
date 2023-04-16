@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 
 import Input from '../../../Ui/Input/Input';
@@ -18,6 +18,12 @@ function SignInForm() {
         success
     } = useAppSelector(state => state.user)
     const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        if (success) {
+            localStorage.setItem('token', userInfo.accessToken);
+        }
+    }, [error, success, dispatch])
 
     const authHandler = () => {
      

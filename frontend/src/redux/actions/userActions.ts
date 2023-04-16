@@ -48,9 +48,8 @@ export const login = createAsyncThunk(
     async ({ email, password }: loginProps, { rejectWithValue }) => {
         try {
             const config = {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: {'Content-Type': 'application/json'},
+                withCredentials: true
             }
 
             const response = await axios.post(

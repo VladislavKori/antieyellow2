@@ -84,18 +84,25 @@ exports.singin = async (req, res) => {
             authorities.push("ROLE_" + roles[i].name.toUpperCase());
         }
 
-        const token = jwt.sign({
-            id: user.id
-        }, config.secret, {
-            expiresIn: 86400, // 24 hours
+        const tokens = generateTokens({
+            id: user.dataValues.id,
+            email: user.dataValues.email
         });
+        await saveToken(user.dataValues.id, tokens.refreshToken)
+
+        res.cookie('refreshToken',
+            tokens.refreshToken, {
+                maxAge: 30 * 24 * 60 * 60 * 1000,
+                httpOnly: true
+            }
+        )
 
         return res.status(200).send({
             id: user.id,
             username: user.username,
             email: user.email,
             roles: authorities,
-            token: token
+            ...tokens
         })
 
     } catch (error) {
@@ -107,7 +114,9 @@ exports.singin = async (req, res) => {
 
 exports.logout = async (req, res) => {
     try {
-        const {refreshToken} = req.cookies;
+        const {
+            refreshToken
+        } = req.cookies;
         await logout(refreshToken)
         res.clearCookie('refreshToken');
 
@@ -127,7 +136,7 @@ exports.refresh = async (req, res) => {
             refreshToken
         } = req.cookies;
 
-        console.log(refreshToken, " refresh")
+        console.log(!!refreshToken, " refresh")
 
         // Проверки
         if (!refreshToken) {
@@ -164,11 +173,13 @@ exports.refresh = async (req, res) => {
         const roles = await user.getRoles();
         for (let i = 0; i < roles.length; i++) {
             authorities.push("ROLE_" + roles[i].name.toUpperCase());
-        } 
-        
-        res.cookie('refreshToken', 
-            tokens.refreshToken,
-            {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true}
+        }
+
+        res.cookie('refreshToken',
+            tokens.refreshToken, {
+                maxAge: 30 * 24 * 60 * 60 * 1000,
+                httpOnly: true
+            }
         )
         return res.status(200).send({
             ...tokens,

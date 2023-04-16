@@ -28,7 +28,9 @@ db.sequelize = sequelize;
 db.user = require("./user.model")(sequelize, Sequelize);
 db.role = require("./role.model")(sequelize, Sequelize);
 db.post = require('./post.model')(sequelize, Sequelize);
-db.tokens = require('./tokens.model')(sequelize, Sequelize)
+db.tokens = require('./tokens.model')(sequelize, Sequelize);
+db.photos = require('./photos.model')(sequelize, Sequelize);
+db.files = require('./files.model')(sequelize, Sequelize)
 
 db.role.belongsToMany(db.user, {
     through: "user_roles",
