@@ -1,28 +1,24 @@
 const db = require('../models/index')
 const Post = db.post;
 const User = db.user;
+const File = db.files;
 
 exports.getpost = async (req, res) => {
     try {
-        const postid = req.params.id;
-
         const post = await Post.findOne({
             where: {
-                id: postid
+                id: req.params.id
             }
         })
 
         if (!post) {
-            return res.status(404).send({
-                message: "Post Not found."
+            return res.status(400).send({
+                message: "Пост не найден"
             })
         }
 
         res.status(200).send({
-            id: post.id,
-            authorid: post.authorid,
-            title: post.title,
-            content: post.content
+            posts: [post]
         })
     } catch (error) {
         return res.status(500).send({
@@ -33,7 +29,7 @@ exports.getpost = async (req, res) => {
 
 exports.getposts = async (req, res) => {
     try {
-        const posts = await Post.findAll({})
+        const posts = await Post.findAll()
         res.status(200).send({
             posts: posts
         })
@@ -50,19 +46,34 @@ exports.createpost = async (req, res) => {
         const {
             title,
             content,
+            fileid
         } = req.body;
-        if (title === undefined || content === undefined) throw new Error('Не хвататет данных');
+        if (title === undefined || content === undefined || fileid === undefined) throw new Error('Не хвататет данных');
+
+        const dataFile = await File.findOne({
+            where: {
+                id: fileid
+            }
+        })
+
+        const user = await User.findOne({
+            where: req.userId
+        });
 
         const post = await Post.create({
             title: title,
-            content: content
+            content: content,
+            preview: dataFile.dataValues.path
         })
 
-        const user = await User.findOne({where: req.userId});
         const result = await post.addUser(user);
-        
+
         if (result) res.status(200).send({
-            message: 'Успех'
+            id: post.dataValues.id,
+            title: post.dataValues.title,
+            preview: post.dataValues.preview,
+            createdAt: post.dataValues.createdAt,
+            authorid: user.dataValues.id
         });
     } catch (error) {
         return res.status(500).send({

@@ -11,6 +11,8 @@ import Loader from './components/Elements/Loader/Loader'
 import PhotoGalary from './pages/PhotoGalary'
 import { useAppDispatch } from './hooks/redux'
 import { refresh } from './redux/actions/userActions'
+import BlogPage from './pages/BlogPage'
+import PostPage from './pages/PostPage'
 
 function App() {
 
@@ -32,6 +34,8 @@ function App() {
               <MainPage />
             } />
             <Route path="/galary" element={<PhotoGalary />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:postId" element={<PostPage />} />
             <Route path="/user/:userId" element={<UserPage />} />
             <Route path="/settings" element={
               <ProtectedRoute>

@@ -5,11 +5,17 @@ import './Button.scss'
 interface ButtonProps {
     children: JSX.Element | string
     onClick?: () => void
+    className?: string
 }
 
-function Button({children, onClick}: ButtonProps) {
+function Button({children, onClick, className}: ButtonProps) {
   return (
-    <button onClick={onClick} className="button">{children}</button>
+    <button 
+      onClick={onClick}
+      className={"button " + className}
+    >
+      {children}
+    </button>
   )
 }
 

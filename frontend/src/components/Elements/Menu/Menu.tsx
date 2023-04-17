@@ -20,7 +20,7 @@ function Menu({children}: IMenu) {
                 className={({ isActive, isPending }) =>
                     isActive ? "header__link header__link_active" : "header__link"
                 }
-                to={"/news"}
+                to={"/blog"}
             >
                 Новости
             </NavLink>

@@ -6,8 +6,11 @@ module.exports = (sequelize, Sequelize) => {
         content: {
             type: Sequelize.STRING
         },
+        preview: {
+            type: Sequelize.STRING
+        }
     }, {
-        timestamps: false
+        timestamps: true
     })
 
     return Post;
