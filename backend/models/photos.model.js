@@ -11,10 +11,6 @@ module.exports = (sequelize, Sequelize) => {
         path: {
             type: Sequelize.STRING
         },
-        fileid: {
-            type: Sequelize.INTEGER,
-            primaryKey: true
-        }
     }, {
         timestamps: true
     })

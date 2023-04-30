@@ -16,4 +16,38 @@
     &:hover {
         background: #bda23e;
     }
+
+    &-delete {
+        background: #FF8383;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background .2s ease-in-out;
+        width: 100px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+
+        &:hover {
+            background: #ff5f5f;
+        }
+    }
+
+    &-change {
+        background: #323232;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background .2s ease-in-out;
+        width: 100px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+
+        &:hover {
+            background: #202020
+        }
+    }
 }

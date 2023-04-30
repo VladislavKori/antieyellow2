@@ -7,20 +7,26 @@ interface InputProps {
     type: string
     placeholder: string
     value: any
-    setValue: any
+    setValue: any,
+    className?: string
+    textarea?: boolean
 }
 
-function Input({ lable, type, placeholder, value, setValue }: InputProps) {
+function Input({ lable, type, placeholder, value, setValue, className, textarea}: InputProps) {
     return (
-        <div className="input">
+        <div className={"input " + className}>
             {!lable ? null : (<h2 className="input__lable">{lable}</h2>)}
-            <input
-                className="input__body"
-                type={type}
-                value={value}
-                onChange={e => setValue(e.target.value)}
-                placeholder={placeholder}
-            />
+            {textarea ? (
+                <textarea className="input__textarea" placeholder={placeholder} value={value} onChange={(e) => setValue(e.target.value)}  />
+            ) : (
+                <input
+                    className="input__body"
+                    type={type}
+                    value={value}
+                    onChange={e => setValue(e.target.value)}
+                    placeholder={placeholder}
+                />
+            )}
         </div>
     )
 }

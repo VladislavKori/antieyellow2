@@ -4,11 +4,11 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         content: {
-            type: Sequelize.STRING
+            type: Sequelize.TEXT
         },
         preview: {
             type: Sequelize.STRING
-        }
+        },
     }, {
         timestamps: true
     })

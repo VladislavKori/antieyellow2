@@ -1,11 +1,15 @@
+@import '../../../styles/breakpoints';
 .pp {
     display: flex;
     gap: 64px;
+    margin: 30px 0;
 
     &__container {
         display: flex;
         flex-direction: column;
         gap: 50px;
+        width: 1400px;
+        margin: 0 auto;
     }
 
     &__preview {
@@ -94,5 +98,49 @@
         font-size: 18px;
         line-height: 100%;
         color: #fff;
+    }
+}
+
+@media (max-width: $xxl) {
+    .pp {
+        &__container {
+            width: 100%;
+        }
+        &__preview {
+            width: 300px
+        }
+    }
+}
+
+@media (max-width: $lg) {
+    .pp {
+        flex-direction: column;
+        gap: 10px;
+
+        &__info {
+            gap: 10px;
+        }
+
+        &__preview {
+            width: 100%;
+            height: 35vh;
+        }
+
+        &__title {
+            font-size: 20px;
+        }
+        &__date {
+            font-size: 14px;
+        }
+        &__descript {
+            font-size: 14px;
+        }
+        &__btns {
+            align-items: flex-start;
+        }
+        &__btn {
+            height: 40px;
+            font-size: 18px;
+        }
     }
 }

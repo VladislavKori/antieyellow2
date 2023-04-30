@@ -1,3 +1,5 @@
+@import '../../../styles/_breakpoints.scss';
+
 .footer {
     background: #151515;
     padding: 100px 0;
@@ -57,5 +59,33 @@
         text-decoration-line: underline;
         text-transform: capitalize;
         color: #C2C2C2;
+    }
+    &__mobile {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+}
+
+@media (max-width: $lg) {
+    .footer__menu .header__navbar {
+        display: flex;
+        flex-direction: column;
+        gap: 20px
+    }
+    .footer {
+        &__inner {
+            display: none;
+        }
+        &__mobile {
+            display: flex;
+        }
+    }
+}
+
+@media (max-width: $sm) {
+    .footer {
+        padding: 50px 0;
     }
 }

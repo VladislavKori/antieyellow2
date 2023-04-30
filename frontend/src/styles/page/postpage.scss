@@ -1,0 +1,70 @@
+@import '../breakpoints';
+.post {
+
+    &__content {
+        width: 1200px;
+        margin: 30px auto;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    &__title {
+        font-family: 'Montserrat';
+        font-weight: 500;
+        font-size: 50px;
+        line-height: 100%;
+        color: #EFEFEF;
+    }
+
+    &__text {
+        font-family: 'Montserrat';
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 150%;
+        color: #EFEFEF;
+    }
+
+    &__estimation {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        height: 45px;
+        gap: 20px;
+
+        &-btn {
+            height: 100%;
+            width: max-content;
+            border-radius: 5px;
+            padding: 10px 30px;
+
+            &_active {
+                background: #b59c43;
+
+                & .post__estimation-icon {
+                    fill: #FF8383;
+                    stroke: none;
+                }
+            }
+        }
+        &-inside {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        &-icon {
+            stroke: #1F1F1F;
+            transition: all .2s ease-in-out;
+        }
+    }
+}
+
+@media (max-width: $xl) {
+    .post {
+
+        &__content {
+            width: 100%;
+        }
+    }
+}

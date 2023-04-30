@@ -1,7 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
+import globalConfig from "../../configs/global.config";
 
-const backendURL = 'http://localhost:3000'
+const backendURL = globalConfig.SERVER_HOST
 
 export const getPosts = createAsyncThunk(
     'posts/getposts',
@@ -13,7 +14,7 @@ export const getPosts = createAsyncThunk(
             }
 
             const response = await axios.get(
-                `${backendURL}/api/posts`,
+                `${backendURL}/api/posts/posts`,
                 config
             );
 
@@ -38,7 +39,85 @@ export const getPost = createAsyncThunk(
             }
 
             const response = await axios.get(
-                `${backendURL}/api/getpost/${id}`,
+                `${backendURL}/api/posts/getpost/${id}`,
+                config
+            );
+
+            return response.data
+        } catch (error: any) {
+            return rejectWithValue(error.response.data.message)
+        }
+    }
+)
+
+export const createPost = createAsyncThunk(
+    'posts/createPost',
+    async ({data}:any, { rejectWithValue }) => {
+        try {
+
+            const config = {
+                headers: { "Content-Type": "multipart/form-data", },
+            }
+
+            const token = localStorage.getItem('token');
+            data.append("token", token);
+
+            const response = await axios.post(
+                `${backendURL}/api/posts/createpost`,
+                data,
+                config
+            );
+
+            return response.data
+        } catch (error: any) {
+            return rejectWithValue(error.response.data.message)
+        }
+    }
+)
+
+
+export const deletePost = createAsyncThunk(
+    'posts/deletePost',
+    async ({postid}:any, { rejectWithValue }) => {
+        try {
+
+            const config = {
+                headers: { "Content-Type": "multipart/form-data", },
+            }
+
+            const token = localStorage.getItem('token');
+
+            const response = await axios.post(
+                `${backendURL}/api/posts/delete`,
+                {
+                    token,
+                    postid
+                },
+                config
+            );
+
+            return response.data
+        } catch (error: any) {
+            return rejectWithValue(error.response.data.message)
+        }
+    }
+)
+
+export const editPost = createAsyncThunk(
+    'posts/editPost',
+    async ({data}:any, { rejectWithValue }) => {
+        try {
+            console.log('ef')
+            const config = {
+                headers: { "Content-Type": "multipart/form-data", },
+            }
+
+            const token = localStorage.getItem('token');
+            data.append("token", token);
+
+            const response = await axios.put(
+                `${backendURL}/api/posts/change`,
+                data,
                 config
             );
 

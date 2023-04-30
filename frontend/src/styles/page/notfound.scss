@@ -1,0 +1,53 @@
+@import '../breakpoints';
+
+.notfound {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 80vh;
+
+    &__text {
+        color: #fff;
+        font-size: 50px;
+    }
+
+    &__title {
+        color: #fff;
+        font-size: 100px;
+    }
+
+    &__link {
+        margin-top: 40px;
+
+        background: #FED953;
+        font-family: 'Montserrat';
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 100%;
+        color: #1F1F1F;
+        padding: 10px 40px;
+        text-decoration: none;
+        width: max-content;
+        transition: background .2s ease-in-out;
+
+        &:hover {
+            background: #bda23e;
+        }
+    }
+}
+
+@media (max-width: $md) {
+    .notfound {
+        align-items: center;
+        text-align: center;
+        &__text {
+            font-size: 30px;
+        }
+        &__title {
+            font-size: 40px;
+        }
+        &__link {
+            margin-top: 20px;
+        }
+    }
+}

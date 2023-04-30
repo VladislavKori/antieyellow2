@@ -1,8 +1,9 @@
 .authmodal {
     display: flex;
     flex-direction: column;
-    width: 300px;
+    width: 350px;
     gap: 15px;
+    padding: 40px;
 
     &__title {
         font-family: 'Montserrat';
@@ -38,4 +39,8 @@
         line-height: 10%;
         color: #EFEFEF;
     }
+}
+
+.validation-error {
+    color: rgb(255, 99, 99);
 }

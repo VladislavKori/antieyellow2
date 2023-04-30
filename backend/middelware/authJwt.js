@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken');
 const config = require('../configs/auth.config');
+const db = require('../models/index');
+const User = db.user;
 
 exports.verifyToken = async (req, res, next) => {
     let token = req.body.token;
@@ -25,7 +27,12 @@ exports.verifyToken = async (req, res, next) => {
 
 exports.isAdmin = async (req, res, next) => {
     try {
-        const user = await User.findByPk(req.userId);
+        
+        const user = await User.findOne({
+            where: {
+                id: req.userId
+            }
+        });
         const roles = await user.getRoles();
 
         for (let i = 0; i < roles.length; i++) {

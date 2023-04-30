@@ -8,9 +8,23 @@ module.exports = (sequelize, Sequelize) => {
         },
         password: {
             type: Sequelize.STRING
+        },
+        vklink: {
+            allowNull: true,
+            defaultValue: null,
+            type: Sequelize.STRING
+        },
+        tglink: {
+            allowNull: true,
+            defaultValue: null,
+            type: Sequelize.STRING
+        },
+        avatar: {
+            type: Sequelize.STRING,
+            defaultValue: "files/i.webp",
         }
     }, {
-        timestamps: false
+        timestamps: true
     })
 
     return User;

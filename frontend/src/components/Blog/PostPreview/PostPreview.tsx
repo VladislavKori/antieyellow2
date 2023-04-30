@@ -19,8 +19,8 @@ interface IPost {
 function PostPreview({ data }: { data: Array<IPost> }) {
 
     const [copySuccess, setCopySuccess] = useState<number | null>(null);
-    const shareHandler = async (id: number) => {
-        await navigator.clipboard.writeText(location.href + `/${id}`);
+    const shareHandler = (id: number) => {
+        navigator.clipboard.writeText(`${globalConfig.FRONT_HOST}/blog/${id}`)
         setCopySuccess(id)
         setTimeout(() => {
             setCopySuccess(null)
@@ -34,7 +34,7 @@ function PostPreview({ data }: { data: Array<IPost> }) {
                     <div className="pp">
                         <div
                             style={{
-                                background: `url(${globalConfig.SERVER_HOST + item.preview})`,
+                                background: `url(${globalConfig.SERVER_HOST + '/' + item.preview})`,
                                 backgroundPosition: "center",
                                 backgroundSize: "cover",
                                 backgroundRepeat: 'no-repeat'
@@ -43,8 +43,8 @@ function PostPreview({ data }: { data: Array<IPost> }) {
                         ></div>
                         <div className="pp__info">
                             <h1 className="pp__title">{item.title}</h1>
-                            <p className="pp__date">{item.createdAt}</p>
-                            <p className="pp__descript">{item.content}</p>
+                            <p className="pp__date">Опубликовано: {item.createdAt}</p>
+                            <p className="pp__descript">{item.content.slice(0, 400) + "..."}</p>
 
                             <div className="pp__btns">
                                 <Link

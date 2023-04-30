@@ -1,0 +1,45 @@
+@import './styles/breakpoints';
+
+body {
+  background: #1F1F1F;
+  position: relative;
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+.content {
+  flex: 1;
+}
+
+.container {
+  width: 1600px;
+  margin: 0 auto;
+}
+
+.error-text {
+  font-family: 'Montserrat';
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 100%;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  margin: 10vh 0;
+}
+
+@media (max-width: $xxxl) {
+  .container {
+    width: 100%;
+    padding: 0 20px;
+  }
+}

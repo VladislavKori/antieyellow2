@@ -1,0 +1,48 @@
+.settings {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+
+    &__header {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+    }
+
+    &__title {
+        font-family: 'Montserrat';
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 100%;
+        color: #FFFFFF;
+    }
+
+    &__btns {
+        display: flex;
+        gap: 20px;
+    }
+
+    &__logout {
+        background: #EFEFEF;
+    }
+
+    &__goback {
+        width: 20px;
+        height: 18px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+
+        & svg {
+            stroke: #ececec;
+            width: 100%;
+            height: 100%;
+            transition: stroke .2s ease-in-out;
+
+            &:hover {
+                stroke: #939393;
+            }
+        }
+    }
+}

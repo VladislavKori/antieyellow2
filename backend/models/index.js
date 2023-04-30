@@ -30,7 +30,10 @@ db.role = require("./role.model")(sequelize, Sequelize);
 db.post = require('./post.model')(sequelize, Sequelize);
 db.tokens = require('./tokens.model')(sequelize, Sequelize);
 db.photos = require('./photos.model')(sequelize, Sequelize);
-db.files = require('./files.model')(sequelize, Sequelize)
+db.commonsettings = require('./common.settings.modal')(sequelize, Sequelize);
+db.likes = require('./likes')(sequelize, Sequelize);
+db.comments = require('./comments.model')(sequelize, Sequelize);
+db.commentsLike = require('./commentsLike.model')(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
     through: "user_roles",
@@ -53,5 +56,7 @@ db.user.hasMany(db.tokens, {
     foreignKey: 'userid'
 });
 
+db.comments.belongsToMany(db.user, { through: db.commentsLike  });
+db.user.belongsToMany(db.comments, { through: db.commentsLike  });
 
 module.exports = db;

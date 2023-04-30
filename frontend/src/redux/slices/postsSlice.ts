@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getPost, getPosts } from '../actions/postsActions';
+import { createPost, deletePost, editPost, getPost, getPosts } from '../actions/postsActions';
+import { getLike } from '../actions/likeActions';
 
 interface IinitialState {
     loading: boolean
@@ -45,9 +46,57 @@ const postsSlice = createSlice({
         builder.addCase(getPost.fulfilled, (state, { payload }) => {
             state.loading = false
             state.success = true
-            state.posts?.push(...payload.posts) 
+            state.posts = payload.posts 
         })
         builder.addCase(getPost.rejected, (state, {payload}) => {
+            state.loading = false
+            state.error = payload;
+        })
+
+        // create post
+        builder.addCase(createPost.pending, (state, action) => {
+            state.loading = true
+            state.error = null
+        })
+        builder.addCase(createPost.fulfilled, (state, { payload }) => {
+            state.loading = false
+            state.success = true
+            state.posts = {...state.posts, ...payload.newpost} 
+            window.location.href = '/admin/blog';
+        })
+        builder.addCase(createPost.rejected, (state, {payload}) => {
+            state.loading = false
+            state.error = payload;
+        })
+
+        // delete post
+        builder.addCase(deletePost.pending, (state, action) => {
+            state.loading = true
+            state.error = null
+        })
+        builder.addCase(deletePost.fulfilled, (state, { payload }) => {
+            state.loading = false
+            state.success = true
+            state.posts = payload.newpost 
+            window.location.href = '/admin/blog';
+        })
+        builder.addCase(deletePost.rejected, (state, {payload}) => {
+            state.loading = false
+            state.error = payload;
+        })
+
+        // edit post
+        builder.addCase(editPost.pending, (state, action) => {
+            state.loading = true
+            state.error = null
+        })
+        builder.addCase(editPost.fulfilled, (state, { payload }) => {
+            state.loading = false
+            state.success = true
+            state.posts = payload.posts 
+            window.location.href = '/admin/blog';
+        })
+        builder.addCase(editPost.rejected, (state, {payload}) => {
             state.loading = false
             state.error = payload;
         })

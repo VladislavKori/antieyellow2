@@ -1,16 +1,13 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import Galary from '../components/Galary/Galary'
 import { useAppDispatch, useAppSelector } from '../hooks/redux'
 import { getPhotos } from '../redux/actions/galaryActions';
 import Loader from '../components/Elements/Loader/Loader';
+import { reset } from '../redux/slices/galarySlice';
 
 function PhotoGalary() {
 
   const dispatch = useAppDispatch();
-  useEffect( () => {
-    dispatch(getPhotos())
-  }, [])
-
   const {
     photos,
     loading,
@@ -18,6 +15,13 @@ function PhotoGalary() {
     success
   } = useAppSelector(state => state.galary)
   
+  useEffect(() => {
+    if (photos) {
+      dispatch(reset())
+    }
+    dispatch(getPhotos())
+  }, [])
+
   return (
     <>
       {loading ? <Loader /> : null}

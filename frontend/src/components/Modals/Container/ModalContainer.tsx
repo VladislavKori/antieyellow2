@@ -27,14 +27,12 @@ function ModalContainer({ children, setVisible, currentState }: ModalContainerPr
         className="modal__blackout"
       ></div>
       <div className="modal__content">
-        <header className="modal__header">
-          <button
-            onClick={() => closeModal()}
-            className="modal__close-btn"
-          >
-            <Close className="modal__close-icon" />
-          </button>
-        </header>
+        <button
+          onClick={() => closeModal()}
+          className="modal__close-btn"
+        >
+          <Close className="modal__close-icon" />
+        </button>
         {children}
       </div>
     </div>

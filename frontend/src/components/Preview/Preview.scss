@@ -1,6 +1,7 @@
+@import '../../styles/breakpoints';
 .preview {
     width: 100%;
-    height: 90vh;
+    height: 900px;
     display: flex;
     align-items: center;
 
@@ -23,11 +24,11 @@
     &__text {
         font-family: 'Montserrat';
         font-weight: 400;
-        font-size: 32px;
+        font-size: 28px;
         line-height: 150%;
         letter-spacing: -0.011em;
         color: #EFEFEF;
-        width: 50%;
+        width: 100%;
     }
 
     &__dash {
@@ -96,6 +97,95 @@
 
         &:hover {
             color: #c8c8c8;
+        }
+    }
+
+    &__mobile {
+        display: none;
+    }
+}
+
+@media (max-width: $xxxxl) {
+    .preview {
+        height: 90vh;
+    }
+}
+
+@media (max-width: $xxl) {
+    .preview {
+        &__title {
+            font-size: 44px;
+        }
+        &__text {
+            font-size: 24px;
+        }
+        &__quote {
+            width: 50px;
+            height: auto;
+            margin: 10px 0;
+        }
+    }
+}
+
+@media (max-width: $xl) {
+    .preview {
+        height: 100%;
+        flex-direction: column-reverse;
+
+        &__model {
+            height: 70vh;
+            width: 100%;
+            position: relative;
+            z-index: 0;
+            text-align: center;
+        }
+        &__title,
+        &__quote {
+            display: none;
+        }
+        &__mobile {
+            display: inherit;
+        }
+        &__info {
+            align-items: center;
+            text-align: center;
+            width: 70%;
+            position: relative;
+            z-index: 1;
+        }
+        &__title {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+}
+
+@media (max-width: $md) {
+    .preview {
+        &__title {
+            font-size: 28px;
+        }
+        &__text {
+            font-size: 18px;
+        }
+        &__info {
+            width: 100%;
+        }
+        &__authorname {
+            font-size: 14px;
+        }
+        &__btns {
+            flex-direction: column;
+        }
+        &__link,
+        &__btn-fragment {
+            font-size: 14px;
+        }
+        &__btns {
+            margin: 25px 0;
+            gap: 25px;
         }
     }
 }

@@ -1,27 +1,80 @@
 export const themesfake = [
     {
         id: 0,
-        title: 'Философия',
-        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vel laoreet est, nec lacinia tortor. Aliquam ligula est, pulvinar a felis vitae, laoreet dictum erat. Nulla semper, eros vitae maximus rutrum, diam massa pharetra metus, nec porttitor eros lorem at lectus. Proin et magna quis velit aliquet accumsan vitae a leo. Aenean finibus ipsum a dolor euismod lobortis. Donec convallis ultrices eleifend. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nam gravida dapibus enim, eget porta tellus placerat quis. Nulla eget maximus lacus. Cras non libero id turpis varius vestibulum ut eu orci. Proin eget dapibus purus, vehicula suscipit nunc. Aliquam lacus augue, fermentum quis ex a, aliquet sollicitudin libero.'
+        title: 'Альтернативная история',
+        text: `«Вы бывали на могиле Теодора Эйке? Да-да, тот, кто убил Эрнеста Рёма и был 
+        учителем Рудольфа Хёсса, захоронен именно здесь, в Хёгевальде. Мрачное 
+        место, нужно признать. Пустой гроб, живой мертвец, зато какой крест! Шедевр!»
+        Фаусто Риндон. 
+        Экс-статс-секретарь городской администрации. 
+        «То, что случилось с Европой – это катастрофа. То, что случилось с евреями – 
+        настоящий ужас. Но то, что случилось с Польшей – закономерность. Пока 
+        англичане с французами не могли решиться на открытый конфликт с Гитлером, 
+        две крайности политической арены (нацизм и коммунизм) сожрали целое 
+        государство. Спасло ли это их от краха? Нет. Но в моменте их безнаказанность 
+        поразила всех: и Черчилля, и Рузвельта, а в особенности – Чемберлена!» 
+        Теодор Фюркерер. 
+        Глава политической полиции города.  `
     },
     {
         id: 1,
-        title: 'Любовь во время войны',
-        text: 'Маленький текст'
+        title: 'Философия жизни и смерти',
+        text: `«Но были ли это люди, заслужившие смерть? Или всё, что говорят об СС – это 
+        правда?.. Тогда скольких невинных жизней стоит одна моя?»
+        Ильза Аккерман. 
+        «Рождение, детство, юность, зрелость, старость, смерть – всё превращалось в 
+        бесконечные списки, таблички и строчки, строчки, строчки, падающие одна на 
+        другую, словно плашки домино. История, любовь и страдания принимали форму 
+        цифр, точек и запятых. Ужасающий цинизм математической рациональности…»
+        Из воспоминаний бывшего узника Аушвица. `
     },
     {
         id: 2,
-        title: 'Что-то ещё',
-        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vel laoreet est, nec lacinia tortor. Aliquam ligula est, pulvinar a felis vitae, laoreet dictum erat. Nulla semper, eros vitae maximus rutrum, diam massa pharetra metus, nec porttitor eros lorem at lectus. Proin et magna quis velit aliquet accumsan vitae a leo. Aenean finibus ipsum a dolor euismod lobortis. Donec convallis ultrices eleifend. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nam gravida dapibus enim, eget porta tellus placerat quis. Nulla eget maximus lacus. Cras non libero id turpis varius vestibulum ut eu orci. Proin eget dapibus purus, vehicula suscipit nunc. Aliquam lacus augue, fermentum quis ex a, aliquet sollicitudin libero.'
+        title: 'Любовь вопреки',
+        text: `«Мы так и не научились любить. Ни один из нас никогда не любил по-
+        настоящему…»
+        Бронислав Ланге. 
+        Главный хирург городской больницы. 
+        «Пока жертвы безликих молили о пощаде, она молила, чтобы он прижимал её к 
+        себе как можно крепче, проникая всё глубже и глубже в эти чёрные воды!»
+        После заседания правителей на вилле Марлье.     `
     },
     {
         id: 3,
-        title: 'Что-то ещё',
-        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vel laoreet est, nec lacinia tortor. Aliquam ligula est, pulvinar a felis vitae, laoreet dictum erat. Nulla semper, eros vitae maximus rutrum, diam massa pharetra metus, nec porttitor eros lorem at lectus. Proin et magna quis velit aliquet accumsan vitae a leo. Aenean finibus ipsum a dolor euismod lobortis. Donec convallis ultrices eleifend. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nam gravida dapibus enim, eget porta tellus placerat quis. Nulla eget maximus lacus. Cras non libero id turpis varius vestibulum ut eu orci. Proin eget dapibus purus, vehicula suscipit nunc. Aliquam lacus augue, fermentum quis ex a, aliquet sollicitudin libero.'
+        title: 'Квазиритуальное действо',
+        text: `«Грязные, небритые бесноватые нацисты танцевали вокруг огромного костра, на 
+        котором горели кричащие ведьмы. Нечеловеческие лица опьянённых мужчин в 
+        рваной военной форме поверх жёлтых лохмотьев; и крик… чудовищный крик 
+        жаренной плоти, томящейся в богохульной молитве мёртвого языка.»
+        Из рапорта зондеркоманды «А». Хёгевальд.
+        «Люди с мёртвыми головами спустятся на топкую землю и захотят выжечь её до 
+        такой степени, пока под их сапогами не будет виднеться инфернальный град. Но в 
+        тот же миг на помощь своей пастве придёт суровый бог топей и мёда: жёлтый бык-
+        исполин встанет на железных путях, перевернув чёрный поезд и растоптав его 
+        жестоких пассажиров. Их кости будут преданы огню и огромным птицам с 
+        красными глазами.»
+        Из рапорта зондеркоманды «В». Гаиты. `
     },
     {
         id: 4,
-        title: 'Что-то ещё',
-        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vel laoreet est, nec lacinia tortor. Aliquam ligula est, pulvinar a felis vitae, laoreet dictum erat. Nulla semper, eros vitae maximus rutrum, diam massa pharetra metus, nec porttitor eros lorem at lectus. Proin et magna quis velit aliquet accumsan vitae a leo. Aenean finibus ipsum a dolor euismod lobortis. Donec convallis ultrices eleifend. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nam gravida dapibus enim, eget porta tellus placerat quis. Nulla eget maximus lacus. Cras non libero id turpis varius vestibulum ut eu orci. Proin eget dapibus purus, vehicula suscipit nunc. Aliquam lacus augue, fermentum quis ex a, aliquet sollicitudin libero.'
+        title: 'Зло на пороге',
+        text: `«И девы бледной слышен крик: “Лик Короля безбожен и велик!”»
+        Последняя строчка первого Акта проклятой пьесы. 
+        «Минуя загадочную планету Мафусаил, что старше самой Вселенной, Гиады и 
+        Альдебаран, он мог видеть, как чёрные солнца опускаются в мёртвые воды озера 
+        Хали, пробуждая древнее, хтоническое Зло.»
+        Из воспоминаний пациента №219. `
     },
+    {
+        id: 5,
+        title: 'Призраки прошлого',
+        text: `«Призраки – это просто внешние проявления наших внутренних страхов.»
+        Юджин Новак. 
+        «Эксперт нацистского вопроса».
+        «Люди, восстающие из могил – это вовсе не лицо прошлого. Прошлое остаётся 
+        там, очень далеко, где время представляется узеньким ручейком. Здесь ему места 
+        нет. Но призраки - души с затхлым запахом – это знамение! Знамение скорой 
+        кончины будущего!»
+        Гауляйтер города Кодать.`
+    }
 ]

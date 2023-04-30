@@ -10,7 +10,7 @@ interface AuthModalProps {
     isOpen: boolean
 }
 
-function AuthModal() {
+function AuthModal({hiddenModal}: any) {
 
     const [regFormIsOpen, setRegFormIsOpen] = useState<boolean>(false);
 

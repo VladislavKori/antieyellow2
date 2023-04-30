@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const config = require('../configs/auth.config');
+const commonConfig = require('../configs/common.config');
 
 const db = require('../models/index')
 const User = db.user;
@@ -28,7 +29,8 @@ exports.signup = async (req, res) => {
 
         const userData = {
             id: user.dataValues.id,
-            email: req.body.email
+            email: req.body.email,
+            username: user.dataValues.username,
         }
         const userTokens = generateTokens(userData);
         saveToken(user.dataValues.id, userTokens.refreshToken)
@@ -44,7 +46,9 @@ exports.signup = async (req, res) => {
         if (result) res.send({
             message: 'Успех',
             ...userData,
-            ...userTokens
+            updatedAt: user.dataValues.updatedAt,
+            createdAt: user.dataValues.createdAt,
+            accessToken: userTokens.accessToken
         }).status(200)
     } catch (error) {
         res.status(500).send({
@@ -93,7 +97,7 @@ exports.singin = async (req, res) => {
         res.cookie('refreshToken',
             tokens.refreshToken, {
                 maxAge: 30 * 24 * 60 * 60 * 1000,
-                httpOnly: true
+                httpOnly: true,
             }
         )
 
@@ -102,7 +106,9 @@ exports.singin = async (req, res) => {
             username: user.username,
             email: user.email,
             roles: authorities,
-            ...tokens
+            createdAt: user.dataValues.createdAt,
+            updatedAt: user.dataValues.updatedAt,
+            accessToken: tokens.accessToken
         })
 
     } catch (error) {
@@ -136,8 +142,6 @@ exports.refresh = async (req, res) => {
             refreshToken
         } = req.cookies;
 
-        console.log(!!refreshToken, " refresh")
-
         // Проверки
         if (!refreshToken) {
             console.log('1')
@@ -152,7 +156,6 @@ exports.refresh = async (req, res) => {
             }
         })
         if (!userData || !tokenFromDb) {
-            console.log('1')
             return res.status(401).send({
                 message: "Refresh Token Not Valid",
             });
@@ -163,11 +166,14 @@ exports.refresh = async (req, res) => {
                 id: userData.id
             }
         })
+
+        delete user.dataValues.password;
         const tokens = generateTokens({
             id: user.dataValues.id,
             email: user.dataValues.email
         });
         await saveToken(userData.id, tokens.refreshToken)
+        
 
         let authorities = [];
         const roles = await user.getRoles();
@@ -183,9 +189,7 @@ exports.refresh = async (req, res) => {
         )
         return res.status(200).send({
             ...tokens,
-            id: user.id,
-            username: user.username,
-            email: user.email,
+            ...user.dataValues,
             roles: authorities,
         })
     } catch (error) {

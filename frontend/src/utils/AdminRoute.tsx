@@ -9,12 +9,18 @@ interface AdminRouteProps {
 function AdminRoute({children}: AdminRouteProps) {
   
   const location = useLocation();
-  const user = useAppSelector((state) => state.user.userInfo);
+  const user = useAppSelector((state) => state.user);
 
     let isAdmin = false;
-    user.roles.map((item: string) => {
+
+    if (user) {
+      // @ts-ignore
+      user.userInfo.roles.map((item: string) => {
         if (item == "ADMIN") { isAdmin = true; }
     })
+    }
+
+    
 
   if (!user && isAdmin) {
     return <Navigate to="/" state={{ from: location }} replace />

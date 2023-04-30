@@ -9,7 +9,7 @@ interface ProtectedRouteProps {
 function ProtectedRoute({children}: ProtectedRouteProps) {
   
   const location = useLocation();
-  const user = useAppSelector((state) => state.user.userInfo);
+  const user = useAppSelector((state) => state.user);
 
   if (!user) {
     return <Navigate to="/login" state={{ from: location }} replace />

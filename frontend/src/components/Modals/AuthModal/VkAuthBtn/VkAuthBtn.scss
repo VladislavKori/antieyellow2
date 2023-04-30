@@ -1,0 +1,31 @@
+.vkauthbtn {
+    background: #fff;
+    width: 100%;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+
+    &:hover {
+        background: #d8d8d8;
+    }
+
+    &__icon {
+        width: 24px;
+        aspect-ratio: 1 / 1;
+    }
+
+    &__text {
+        font-family: 'Montserrat';
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 150%;
+        letter-spacing: -0.011em;
+        color: #000000;
+    }
+}

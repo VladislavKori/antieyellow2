@@ -1,7 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Galary.scss'
 
 import globalConfig from '../../configs/global.config'
+
+import { ReactComponent as CloseIcon } from '../../assets/icons/close.svg'
+import ImageViewer from '../Elements/ImageViewer/ImageViewer'
 
 interface IPhoto {
     id: 1
@@ -20,15 +23,12 @@ function Galary({ photos }: GalaryProps) {
 
     const [isOpen, setIsOpen] = useState<number | null>();
     const photoHandler = (photoid: number, clear: boolean) => {
-
-        if (clear) { setIsOpen(null) }
+        if (clear) { setIsOpen(null); document.body.style.overflow = 'auto' }
         else { setIsOpen(photoid) }
-
-        if (!!isOpen) { document.body.style.overflow = "auto" }
-        else { document.body.style.overflow = "hidden" }
     }
 
     return (
+        <>
         <div className="galary">
             {photos.map((item, index) => (
                 <React.Fragment key={index}>
@@ -36,22 +36,17 @@ function Galary({ photos }: GalaryProps) {
                         onClick={() => photoHandler(item.id, false)}
                         className="galary__img-container"
                     >
-                        <img className="galary__img" src={globalConfig.SERVER_HOST + item.path} />
+                        <img className="galary__img" src={globalConfig.SERVER_HOST + "/" + item.path} />
                     </div>
 
                     {isOpen === item.id ? (
-                        <div className="galary__modal">
-                            <div
-                                onClick={() => photoHandler(item.id, true)}
-                                className="galary__modal-bg"
-                            ></div>
-                            <img className="galary__modal-img" src={globalConfig.SERVER_HOST + item.path} />
-                        </div>
+                        <ImageViewer photoHandler={photoHandler} isOpen={isOpen} item={item} />
                     ) : null}
 
                 </React.Fragment>
             ))}
         </div>
+        </>
     )
 }
 

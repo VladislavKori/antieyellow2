@@ -1,8 +1,12 @@
+@import '../../../styles/_breakpoints.scss';
+
 .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 20px 0;
+    position: relative;
+    z-index: 2;
 
     &__logo {
         width: 50px;
@@ -61,11 +65,101 @@
         overflow: hidden;
         display: flex;
         align-items: center;
-        justify-content: center;    
+        justify-content: center;
 
         & img {
             width: auto;
             height: 100%;
         }
+    }
+
+    &__burgermenu {
+        display: none;
+        background: transparent;
+        cursor: pointer;
+        border: none;
+        width: 24px;
+        aspect-ratio: 1 / 1;
+
+        & svg {
+            width: 100%;
+            height: 100%;
+            fill: #EFEFEF;
+            transition: fill .2s ease-in-out;
+        }
+
+        &:hover svg {
+            fill: rgb(195, 195, 195);
+        }
+
+        & .hmm__arrow {
+            fill: none;
+            stroke: #EFEFEF;
+        }
+    }
+}
+
+@media (max-width: $lg) {
+    .header {
+        &__navbar {
+            display: none;
+        }
+
+        &__burgermenu {
+            display: inherit;
+        }
+    }
+}
+
+.hmm {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 3;
+    background: #1F1F1F;
+    padding: 25px;
+    transition: right .5s ease-in-out;
+
+    &__open {
+        right: 0%;
+    }
+
+    &__close {
+        right: -100%;
+    }
+
+    &__body {
+        margin-top: 40px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+
+        & .header__navbar {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+    }
+
+    &__logo {
+        width: 50px;
+    }
+
+    &__logo2 {
+        width: 60vw;
+    }
+    &__btn {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        text-decoration: none;
+    }
+    &__text {
+        color: #fff;
+        font-size: 16px;
     }
 }

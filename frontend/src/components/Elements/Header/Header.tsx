@@ -1,7 +1,7 @@
 
 // libs
-import React, { useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 
 // styles
 import './Header.scss'
@@ -11,16 +11,38 @@ import { useAppSelector } from '../../../hooks/redux'
 
 // icons
 import { ReactComponent as Logo } from '../../../assets/logo.svg';
+import { ReactComponent as BurgerMenu } from '../../../assets/icons/burgermenu.svg'
+import { ReactComponent as CloseIcon } from '../../../assets/icons/close.svg';
+import { ReactComponent as Logo2 } from '../../../assets/logo2.svg';
+import { ReactComponent as Arrow } from '../../../assets/icons/arrow.svg';
 
 // components
 import AuthModal from '../../Modals/AuthModal/AuthModal';
 import ModalContainer from '../../Modals/Container/ModalContainer';
 import Menu from '../Menu/Menu'
+import globalConfig from '../../../configs/global.config';
 
 function Header() {
 
-    const { userInfo, isAuth } = useAppSelector((state) => state.user);
+    const location = useLocation();
+
+    const { userInfo, isAuth } = useAppSelector(state => state.auth);
     const [authModalIsOpen, setAuthModalIsOpen] = useState<boolean>(false);
+
+    const [authScreenIsOpen, setScreenModalIsOpen] = useState<boolean>(false);
+    const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
+
+    useEffect(() => {
+        setMenuIsOpen(false)
+    }, [location])
+
+    useEffect(() => {
+        if (menuIsOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+    }, [menuIsOpen])
 
     return (
         <>
@@ -29,12 +51,76 @@ function Header() {
                     <Logo className="header__logo" />
                 </Link>
 
+                <button
+                    onClick={() => setMenuIsOpen(true)}
+                    className="header__burgermenu"
+                >
+                    <BurgerMenu />
+                </button>
+
+                {/* header mobile menu */}
+                <div className={menuIsOpen ? "hmm hmm__open" : "hmm hmm__close"}>
+
+                    {!authScreenIsOpen ? (
+                        <>
+                            <header>
+                                <button className="header__burgermenu" onClick={() => setMenuIsOpen(false)}>
+                                    <CloseIcon />
+                                </button>
+                            </header>
+                            <div className="hmm__body">
+                                <Logo className="header__logo hmm__logo" />
+                                <Logo2 className="hmm__logo2" />
+                                <Menu>
+                                    {isAuth ? (
+                                        <Link className="hmm__btn" to={`/user/${userInfo.id}`}>
+                                            <div
+                                                className="header__userprofile"
+                                                style={{
+                                                    background: `url('${globalConfig.SERVER_HOST + "/" + userInfo.avatar }')`,
+                                                    backgroundPosition: 'center',
+                                                    backgroundRepeat: 'no-repeat',
+                                                    backgroundSize: 'cover',
+                                                }} 
+                                            />
+                                            <p className="hmm__text">{userInfo.username}</p>
+                                        </Link>
+                                    ) : (
+                                        <button
+                                            onClick={() => setScreenModalIsOpen(true)}
+                                            className="header__auth-btn">
+                                            Войти
+                                        </button>
+                                    )}
+                                </Menu>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <header>
+                                <button className="header__burgermenu" onClick={() => setScreenModalIsOpen(false)}>
+                                    <Arrow className="hmm__arrow" />
+                                </button>
+                            </header>
+                            <div className="hmm__body">
+                                <AuthModal />
+                            </div>
+                        </>
+                    )}
+                </div>
+
                 <Menu>
                     {isAuth ? (
                         <Link to={`/user/${userInfo.id}`}>
-                            <div className="header__userprofile">
-                                <img src="https://media.istockphoto.com/id/1309328823/photo/headshot-portrait-of-smiling-male-employee-in-office.jpg?b=1&s=170667a&w=0&k=20&c=MRMqc79PuLmQfxJ99fTfGqHL07EDHqHLWg0Tb4rPXQc=" />
-                            </div>
+                            <div 
+                                className="header__userprofile"
+                                style={{
+                                    background: `url('${globalConfig.SERVER_HOST + "/" + userInfo.avatar }')`,
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat',
+                                    backgroundSize: 'cover',
+                                }} 
+                            />
                         </Link>
                     ) : (
                         <button
@@ -48,7 +134,7 @@ function Header() {
 
             {authModalIsOpen ? (
                 <ModalContainer setVisible={setAuthModalIsOpen} currentState={authModalIsOpen}>
-                    <AuthModal />
+                    <AuthModal hiddenModal={setAuthModalIsOpen} />
                 </ModalContainer>
             ) : null}
         </>

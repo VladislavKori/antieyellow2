@@ -1,0 +1,80 @@
+@import '../breakpoints';
+
+.userpage {
+    display: flex;
+    gap: 40px;
+    margin: 50px 0;
+
+    &__avatar {
+        width: 300px;
+        height: 300px;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    &__name {
+        font-family: 'Montserrat';
+        font-weight: 400;
+        font-size: 40px;
+        line-height: 100%;
+        letter-spacing: -0.011em;
+        color: #FFFFFF;
+    }
+
+    &__data-create {
+        font-family: 'Montserrat';
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 100%;
+        letter-spacing: -0.011em;
+        color: #717171;
+    }
+
+    &__settings-btn {
+        padding: 5px 52px;
+        width: max-content;
+        border-radius: 5px;
+    }
+
+    &__icon {
+        width: 24px;
+        height: auto;
+    }
+
+    &__btn-bar {
+        display: flex;
+        align-items: center;
+        gap: 50px;
+    }
+
+    &__link {
+        font-family: 'Montserrat';
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 150%;
+        text-decoration-line: underline;
+        color: #FFFFFF;
+        transition: color .2s ease-in-out;
+
+        &:hover {
+            color: #b4b4b4;
+        }
+    }
+}
+
+@media (max-width: $md) {
+    .userpage {
+        flex-direction: column;
+
+        &__avatar {
+            width: 200px;
+            height: 200px;
+        }
+    }
+}

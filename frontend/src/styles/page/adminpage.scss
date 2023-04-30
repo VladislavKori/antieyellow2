@@ -1,0 +1,159 @@
+@import '../breakpoints';
+
+.admin {
+    margin: 30px 0;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+
+    &__main-area {
+        flex: 1;
+        background: #151515;
+        padding: 20px 30px;
+    }
+
+    &__sidebar {
+        flex-basis: 400px;
+        width: 100%;
+        background: #151515;
+        padding: 40px 50px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 25px;
+    }
+
+    &__link {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        width: max-content;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+
+        &_active {
+            & .admin__link-text {
+                text-decoration-line: underline;
+                color: #998129;
+            }
+
+            & .admin__icon {
+                fill: #998129;
+            }
+        }
+    }
+
+    &__icon {
+        width: 24px;
+        height: 24px;
+        fill: #EFEFEF;
+    }
+
+    &__link-text {
+        font-family: 'Montserrat';
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 100%;
+        color: #EFEFEF;
+        transition: color .2s ease-in-out;
+        text-decoration: none !important;
+    }
+
+    &__list {
+        height: 60vh;
+        margin: 15px 0;
+        overflow-y: scroll;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    &__item {
+        background: #232323;
+    }
+
+    &__title {
+        font-family: 'Montserrat';
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 100%;
+        color: #FFFFFF;
+    }
+
+    &__delwindow {
+        padding: 30px 50px;
+    }
+
+    &__deltext {
+        font-family: 'Montserrat';
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 100%;
+        color: #FFFFFF;
+        margin: 30px 0;
+    }
+
+    &__delbtn {
+        background: #FF8383;
+        border-radius: 5px;
+        font-family: 'Montserrat';
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 100%;
+        color: #EFEFEF;
+        border: none;
+        padding: 10px 25px;
+        cursor: pointer;
+        transition: background .2s ease-in-out;
+        
+        &:hover {
+            background: #c06b6b;
+        }
+    }
+
+    &__cancelbtn {
+        background: #323232;
+        border-radius: 5px;
+        font-family: 'Montserrat';
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 100%;
+        color: #EFEFEF;
+        border: none;
+        padding: 10px 25px;
+        cursor: pointer;
+        transition: background .2s ease-in-out;
+    
+        &:hover {
+            background: #2a2a2a;
+        }
+    }
+
+    &__delbtns {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    &__content {
+        margin-top: 40px;
+        flex: 1;
+    }
+}
+
+@media (max-width: $lg) {
+    .admin {
+        flex-direction: column-reverse;
+
+        &__sidebar {
+            flex-basis: 0;
+        }
+
+        &__main-area {
+            width: 100%;
+        }
+    }
+}
