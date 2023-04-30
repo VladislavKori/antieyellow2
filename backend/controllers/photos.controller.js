@@ -7,6 +7,7 @@ const { upload, delFile } = require('../utils/file');
 
 exports.getphotos = async (req, res) => {
     try {
+        // Получаем все фотографии из бд
         const photos = await Photos.findAll();
         return res.status(200).send({
             photos: photos
@@ -21,7 +22,6 @@ exports.getphotos = async (req, res) => {
 exports.createphotos = async (req, res) => {
     try {
         // Проверка тайтла на пустоту
-        // console.log(req.body.title, req.files)
         if (!req.body.title || !req.files) {
             return res.status(400).send({
                 message: "Поля не заполнены"
@@ -92,11 +92,14 @@ exports.deletephoto = async (req, res) => {
 exports.changephoto = async (req, res) => {
     try {
 
+        // Проверяем поля
         if (!req.body.title || !req.body.photoid || !req.files) {
             return res.status(400).send({
                 message: "Поля не заполнены"
             });
         }
+
+        // Ищем нужно фото по входящим полям
         const dataPhoto = await Photos.findOne({
             where: {
                 id: req.body.photoid
@@ -106,7 +109,7 @@ exports.changephoto = async (req, res) => {
             return res.status(400).send({message: "Фотография не найдена"})
         }
 
-        // delete file
+        // Удаляем файл
         const deleteInfo = await delFile(dataPhoto.dataValues.path);
         if (deleteInfo) {
             return res.status(500).send({
@@ -114,6 +117,7 @@ exports.changephoto = async (req, res) => {
             })
         }
 
+        // Сохраняем файл
         const savePhoto = await upload(req.files);
         if (savePhoto.path == null) {
             return res.status(500).send({
@@ -121,9 +125,11 @@ exports.changephoto = async (req, res) => {
             })
         }
 
+        // Меняем поля 
         dataPhoto.path = savePhoto.path
         dataPhoto.title = req.body.title
 
+        // Сохраняем изменённые поля
         const result = await dataPhoto.save()
 
         if (result) return res.status(200).send({

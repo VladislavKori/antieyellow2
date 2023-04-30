@@ -19,8 +19,16 @@ const commonSettingsRoutes = require('./routes/settings.routes')
 
 const commonConf = require('./configs/common.config')
 
+// Переменные из базы данных для инициализации стандартных полей
+const db = require('./models/index');
+const Role = db.role;
+const Settings = db.commonsettings;
+const User = db.user;
+
+// Создание объекта express
 const app = express();
 
+// Middelwares
 app.use(cors({
   credentials: true,
   origin: commonConf.CLIENT_URL
@@ -38,68 +46,16 @@ app.use(session({
   }
 }));
 
-const db = require('./models/index');
-const Role = db.role;
-const Settings = db.commonsettings;
-const User = db.user;
-
-passport.use(new AuthVKStrategy({
-    clientID: "51630372",
-    clientSecret: "Q8RjzYB7SuDuTw9Pdrjy",
-    callbackURL: "http://localhost:3000/api/auth/vkontakte/callback",
-    scope: ["email"],
-    profileFields: ["email"],
-  },
-  async function (accessToken, refreshToken, params, profile, done) {
-    console.log(profile, params)
-    const user = await User.create({
-      username: profile.uesrname,
-      email: profile.emails[0].value,
-      password: bcrypt.hashSync('123', 8),
-      vklink: profile.profileUrl,
-      avatar: profile.photos[0].value
-    })
-
-    const roles = await Role.findAll()
-    const result = user.setRoles(roles[0])
-
-    const userData = {
-      id: user.dataValues.id,
-      email: profile.uesrname,
-      username: profile.uesrnames,
-    }
-    const userTokens = generateTokens(userData);
-    saveToken(user.dataValues.id, userTokens.refreshToken)
-
-    res.cookie(
-      'refreshToken',
-      userTokens.refreshToken, {
-        maxAge: 30 * 24 * 60 * 60 * 1000,
-        httpOnly: true
-      }
-    )
-
-    return done(null, profile);
-  }
-));
-
-passport.serializeUser(function (user, done) {
-  console.log(user.id)
-  done(null, user.id);
+// Нужно при deploy, Создаёт нужные таблицы в базе данных
+db.sequelize.sync({
+  force: true
+}).then(() => {
+  console.log('Drop and Resync Database with { force: true }');
+  initial();
 });
 
-passport.deserializeUser(function (id, done) {
-  done(null)
-});
 
-// db.sequelize.sync({force: true})
-// db.sequelize.sync({
-//   force: true
-// }).then(() => {
-//   console.log('Drop and Resync Database with { force: true }');
-//   initial();
-// });
-
+// Инициализация роутеров с роутами
 app.get('/api/', (req, res) => {
   res.send('hello')
 })
@@ -109,11 +65,14 @@ app.use('/api/photos', photoRoutes)
 app.use('/api', userRoutes)
 app.use('/api/settings', commonSettingsRoutes)
 
+// Запуск сервера
 app.listen(3000, (err) => {
   if (err) return console.log('error', err)
   console.log('server started on port 3000')
 })
 
+
+// Фу-ия для инициализации базовых настроек
 function initial() {
   Role.create({
     id: 1,
@@ -126,7 +85,7 @@ function initial() {
   });
   createAdminAccount({
     username: "admin",
-    email: "admin",
+    email: "admin@gmail.com",
     password: "admin"
   })
   Settings.create({

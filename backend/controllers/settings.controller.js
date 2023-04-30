@@ -4,6 +4,7 @@ const { upload } = require('../utils/file')
 
 exports.getsettings = async (req, res) => {
     try {
+        // Получаем все общие настройки
         const settings = await commonsettings.findAll()
 
         return res.status(200).send({

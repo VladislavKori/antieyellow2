@@ -9,6 +9,7 @@ const Token = db.tokens;
 
 const bcrypt = require('bcryptjs')
 
+// Сервисы для упращение контролерров
 const {
     generateTokens,
     validateRefreshToken,
@@ -18,15 +19,18 @@ const {
 
 exports.signup = async (req, res) => {
     try {
+        // Создаём пользователя в бд по данным из входящего щапроса
         const user = await User.create({
             username: req.body.username,
             email: req.body.email,
             password: bcrypt.hashSync(req.body.password, 8)
         })
 
+        // Устанавливаем роль
         const roles = await Role.findAll()
         const result = user.setRoles(roles[0])
 
+        // Генерируем токены
         const userData = {
             id: user.dataValues.id,
             email: req.body.email,
@@ -35,6 +39,7 @@ exports.signup = async (req, res) => {
         const userTokens = generateTokens(userData);
         saveToken(user.dataValues.id, userTokens.refreshToken)
 
+        // Устанавливаем в httpObly кук рефреш токен
         res.cookie(
             'refreshToken',
             userTokens.refreshToken, {
@@ -43,6 +48,7 @@ exports.signup = async (req, res) => {
             }
         )
 
+        // Отправляем ответ со статусом 200
         if (result) res.send({
             message: 'Успех',
             ...userData,
@@ -59,6 +65,7 @@ exports.signup = async (req, res) => {
 
 exports.singin = async (req, res) => {
     try {
+        // Ищем пользователя по данным из запроса
         const user = await User.findOne({
             where: {
                 email: req.body.email
@@ -71,6 +78,7 @@ exports.singin = async (req, res) => {
             });
         }
 
+        // Проверяем сходство паролей
         const passwordIsValid = bcrypt.compareSync(
             req.body.password,
             user.password
@@ -82,18 +90,21 @@ exports.singin = async (req, res) => {
             });
         }
 
+        // Собираем роли в массив authorities
         let authorities = [];
         const roles = await user.getRoles();
         for (let i = 0; i < roles.length; i++) {
             authorities.push("ROLE_" + roles[i].name.toUpperCase());
         }
 
+        // Генерируем два токена access и refresh
         const tokens = generateTokens({
             id: user.dataValues.id,
             email: user.dataValues.email
         });
         await saveToken(user.dataValues.id, tokens.refreshToken)
 
+        // Устанавливаем рефреш токен
         res.cookie('refreshToken',
             tokens.refreshToken, {
                 maxAge: 30 * 24 * 60 * 60 * 1000,
@@ -101,6 +112,7 @@ exports.singin = async (req, res) => {
             }
         )
 
+        // Отправляем данные
         return res.status(200).send({
             id: user.id,
             username: user.username,
@@ -118,6 +130,7 @@ exports.singin = async (req, res) => {
     }
 }
 
+// Сбрасываем все токены и удаляем из бд
 exports.logout = async (req, res) => {
     try {
         const {
@@ -181,12 +194,15 @@ exports.refresh = async (req, res) => {
             authorities.push("ROLE_" + roles[i].name.toUpperCase());
         }
 
+        // Устанавливаем новый refresh
         res.cookie('refreshToken',
             tokens.refreshToken, {
                 maxAge: 30 * 24 * 60 * 60 * 1000,
                 httpOnly: true
             }
         )
+
+        // Отправляем данные о пользователе
         return res.status(200).send({
             ...tokens,
             ...user.dataValues,

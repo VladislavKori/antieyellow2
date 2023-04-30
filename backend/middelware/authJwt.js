@@ -3,6 +3,7 @@ const config = require('../configs/auth.config');
 const db = require('../models/index');
 const User = db.user;
 
+// Middelware проверяющий токен
 exports.verifyToken = async (req, res, next) => {
     let token = req.body.token;
 
@@ -25,6 +26,7 @@ exports.verifyToken = async (req, res, next) => {
 
 }
 
+// Middelware определяющий, пользователь админ или нет
 exports.isAdmin = async (req, res, next) => {
     try {
         

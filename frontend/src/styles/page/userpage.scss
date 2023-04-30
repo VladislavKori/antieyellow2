@@ -53,6 +53,12 @@
         gap: 50px;
     }
 
+    &__socials {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
     &__link {
         font-family: 'Montserrat';
         font-weight: 500;

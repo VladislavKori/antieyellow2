@@ -17,10 +17,11 @@ function PostPage() {
         dispatch(getPost({ id: String(postId) }))
     }, [])
 
-    const { postId } = useParams();
+    const { postId } = useParams(); // Проучаем id поста
     const [postHasLike, setPostHasLike] = useState<boolean>(false);
     const [postError, setPostError] = useState<string>("")
 
+    // Получаем данные из state
     const {
         posts,
         loading,
@@ -40,17 +41,20 @@ function PostPage() {
         }
     }, [error, dispatch, posts])
 
+    // Если на сервере измениться состояние лайка на пост, то оно отобразиться и на экране
     useEffect( () => {
         if (like.like) {
             setPostHasLike(like.like.like)
         }
     }, [like.like])
 
+    // Ручка для изменения положения лайка
     const changeLikeHandler = () => {
         setPostHasLike(!postHasLike)
         dispatch(keepLike({ postid: String(postId) }))
     }
 
+    // Фу-ия для копирования
     async function copyInBuffer() {
         const value = String(globalConfig.FRONT_HOST + `/blog/${postId}`);
         const result = await navigator.clipboard.writeText('dsf')

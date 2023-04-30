@@ -1,6 +1,7 @@
 const db = require('../models/index')
 const User = db.user;
 
+// Проверка на дубликат email, используется при регестрации
 exports.checkDuplicateUsernameOrEmail = async (req, res, next) => {
     try {
 

@@ -5,17 +5,21 @@ const User = db.user;
 exports.getUser = async (req, res) => {
     try {
         const {id} = req.params;
+        // Находим пользователя по id
         const user = await User.findOne({
             where: {
                 id: id
             }
         })
+
+        // Если пользователь не найден, то отправляем 400 ответ
         if (!user) { 
             return res.status(400).send({
                 message: "User not found"
             })
         }
 
+        // Удаляем поле пароль из объекта для отправки ответа
         delete user.dataValues.password
         
         return res.status(200).send({
@@ -32,6 +36,7 @@ exports.getUser = async (req, res) => {
 
 exports.changesettings = async (req, res) => {
     try {
+        // Получаем id из токена
         const userId = req.userId;
         const {vklink = null, tglink = null} = req.body
         const user = await User.findOne({
@@ -45,6 +50,7 @@ exports.changesettings = async (req, res) => {
             })
         }
 
+        // Меняем поля пользовательских настроек
         user.vklink = vklink;
         user.tglink = tglink;
         await user.save();
@@ -78,7 +84,7 @@ exports.changepassword = async (req, res) => {
             })
         }
 
-        console.log(user, user.password, '81 uesr.controller')
+        // Проверяем старый пароль, с введённым старым паролем
         const passwordIsValid = bcrypt.compareSync(
             currentPassword,
             user.password

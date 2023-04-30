@@ -34,6 +34,7 @@ function UserPage() {
 
     const [settingsIsOpen, setSettingsOpen] = useState<boolean>(false);
 
+    // Перед загрузкой экрана, запрашиваем пользователя
     useEffect(() => {
         if (userId != undefined) {
             dispatch(getUser({ id: userId }))

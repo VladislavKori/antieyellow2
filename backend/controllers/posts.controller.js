@@ -131,26 +131,27 @@ exports.deletepost = async (req, res) => {
 
 exports.changepost = async (req, res) => {
     try {
-        console.log('рудд')
         const {
             postid,
             title,
             content,
         } = req.body;
 
+        // Проверяем поля
         if (!title || !content || !postid || !req.files) {
             return res.status(500).send({
                 message: "Данных не хвататет"
             })
         };
 
+        // Ищеём подходящтй пост
         const post = await Post.findOne({
             where: {
                 id: postid
             }
         })
 
-        // delete file
+        // Удаляем файл (превью)
         const deleteInfo = await delFile(post.dataValues.preview);
         if (deleteInfo) {
             return res.status(500).send({
@@ -158,6 +159,7 @@ exports.changepost = async (req, res) => {
             })
         }
 
+        // Создаём новый файл
         const savePhoto = await upload(req.files);
         if (savePhoto.path == null) {
             return res.status(500).send({
@@ -165,12 +167,12 @@ exports.changepost = async (req, res) => {
             })
         }
 
-
-
+        // Изменяем поля
         post.preview = savePhoto.path;
         post.title = title;
         post.content = content;
 
+        // Сохраняем обновлённые поля в бд
         const result = await post.save();
 
         if (result) res.status(200).send({

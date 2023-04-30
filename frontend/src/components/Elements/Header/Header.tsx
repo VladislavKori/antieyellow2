@@ -1,7 +1,7 @@
 
 // libs
 import React, { useEffect, useState } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 
 // styles
 import './Header.scss'
@@ -24,7 +24,8 @@ import globalConfig from '../../../configs/global.config';
 
 function Header() {
 
-    const location = useLocation();
+    const location = useLocation(); // Хук для отслеживания url -а
+    const navigate = useNavigate();
 
     const { userInfo, isAuth } = useAppSelector(state => state.auth);
     const [authModalIsOpen, setAuthModalIsOpen] = useState<boolean>(false);
@@ -32,10 +33,12 @@ function Header() {
     const [authScreenIsOpen, setScreenModalIsOpen] = useState<boolean>(false);
     const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
 
+    // Скрываем мобильное меню, если ссылка сменилась
     useEffect(() => {
         setMenuIsOpen(false)
     }, [location])
 
+    // Если открыта модалка, то блокируем экран для скрола
     useEffect(() => {
         if (menuIsOpen) {
             document.body.style.overflow = 'hidden';
@@ -73,18 +76,21 @@ function Header() {
                                 <Logo2 className="hmm__logo2" />
                                 <Menu>
                                     {isAuth ? (
-                                        <Link className="hmm__btn" to={`/user/${userInfo.id}`}>
+                                        <div className="hmm__btn" style={{ cursor: 'pointer' }} onClick={() => {
+                                            navigate(`/user/${userInfo.id}`)
+                                            window.location.reload();
+                                        }}>
                                             <div
                                                 className="header__userprofile"
                                                 style={{
-                                                    background: `url('${globalConfig.SERVER_HOST + "/" + userInfo.avatar }')`,
+                                                    background: `url('${globalConfig.SERVER_HOST + "/" + userInfo.avatar}')`,
                                                     backgroundPosition: 'center',
                                                     backgroundRepeat: 'no-repeat',
                                                     backgroundSize: 'cover',
-                                                }} 
+                                                }}
                                             />
                                             <p className="hmm__text">{userInfo.username}</p>
-                                        </Link>
+                                        </div>
                                     ) : (
                                         <button
                                             onClick={() => setScreenModalIsOpen(true)}
@@ -111,17 +117,20 @@ function Header() {
 
                 <Menu>
                     {isAuth ? (
-                        <Link to={`/user/${userInfo.id}`}>
-                            <div 
+                        <div style={{ cursor: 'pointer' }} onClick={() => {
+                            navigate(`/user/${userInfo.id}`)
+                            window.location.reload();
+                        }}>
+                            <div
                                 className="header__userprofile"
                                 style={{
-                                    background: `url('${globalConfig.SERVER_HOST + "/" + userInfo.avatar }')`,
+                                    background: `url('${globalConfig.SERVER_HOST + "/" + userInfo.avatar}')`,
                                     backgroundPosition: 'center',
                                     backgroundRepeat: 'no-repeat',
                                     backgroundSize: 'cover',
-                                }} 
+                                }}
                             />
-                        </Link>
+                        </div>
                     ) : (
                         <button
                             onClick={() => setAuthModalIsOpen(!authModalIsOpen)}

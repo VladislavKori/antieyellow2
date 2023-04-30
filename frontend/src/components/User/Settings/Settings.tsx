@@ -45,6 +45,7 @@ function Settings({ setPage }: SettingsProps) {
         }
     }, [settings.error, settings.success])
 
+    // Ручка для изменеия пароля
     const handleChangePassword = () => {
 
         dispatch(changePassword({
@@ -57,6 +58,7 @@ function Settings({ setPage }: SettingsProps) {
         setRepeatNewPassword("")
     }
 
+    // Ручка для выхода из аккаунта
     const logoutHandler = () => {
         dispatch(logout())
         if (typeof window !== 'undefined') {
@@ -64,6 +66,7 @@ function Settings({ setPage }: SettingsProps) {
         }
     }
 
+    // Сохранение настроек чата
     const saveChangesHandler = () => {
         dispatch(changeSocials({
             vklink,

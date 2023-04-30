@@ -11,6 +11,8 @@ import { getCommonSettings } from '../../../redux/actions/sitesetActions'
 function Footer() {
 
     const commonset = useAppSelector(state => state.commonSettings)
+
+    // Запрашиваем общие настройки
     const dispatch = useAppDispatch()
     useEffect( () => {
         dispatch(getCommonSettings())
