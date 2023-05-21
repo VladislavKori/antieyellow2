@@ -1,0 +1,1 @@
+import{j as o,b as n,L as t}from"./index-864a135d.js";function a(){return o("div",{className:"notfound",children:[n("h1",{className:"notfound__title",children:"404"}),n("h1",{className:"notfound__text",children:"Старница не найдена"}),n(t,{className:"notfound__link",to:"/",children:"Вернуться"})]})}export{a as default};

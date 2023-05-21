@@ -11,6 +11,7 @@ interface IinitialState {
 }
 
 const isAdmin = (array: Array<string>) => {
+    if (!array) return false;
     let isAdmin = false;
     array.map(item => {
         if (item == "ROLE_ADMIN") {
