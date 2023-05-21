@@ -8,5 +8,4 @@ if (import.meta.env.PROD) {
         FRONT_HOST: 'http://1431423-cu86531.tw1.ru/',
     }
 }
-
 export default result;
