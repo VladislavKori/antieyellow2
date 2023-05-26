@@ -21,7 +21,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         avatar: {
             type: Sequelize.STRING,
-            defaultValue: "files/i.webp",
+            defaultValue: "files/avatar.jpg",
         }
     }, {
         timestamps: true
