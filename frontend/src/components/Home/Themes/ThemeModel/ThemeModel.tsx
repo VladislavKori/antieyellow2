@@ -26,6 +26,10 @@ function ThemeModel() {
         }
     })
 
+    if (!scene) {
+        return null;
+    }
+
     return (
         <Canvas camera={{ position: [0, 0, 5] }}>
             <ambientLight />
